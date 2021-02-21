@@ -56,20 +56,21 @@ for dato in datos.split("\n"):
     #seg_hr = int(info[1])
     seg = seg_hr * 4
 
-    data_eda = eda[seg]
-    data_hr = hr[seg_hr]
+    data_eda = eda[(seg - 20): (seg + 20)]
+    data_hr = hr[(seg_hr - 5): (seg_hr + 5)]
 
     #print(data_eda)
     #print(data_hr)
 
-    data.write(
-        info[3][-1] + ";"
-        + info[4][-1] + ";"
-        + str(data_eda) + ";"
-        + str(data_hr) + ";"
-        + class_dimensional.get(int(info[2])) + ";"
-        + convert(seg_hr)
-        + "\n")
+    for x in range(10):
+        data.write(
+            info[3][-1] + ";"
+            + info[4][-1] + ";"
+            + str(statistics.mean(data_eda[(x * 4): ((x * 4) + 4)])) + ";"
+            + str(data_hr[x]) + ";"
+            + class_dimensional.get(int(info[2])) + ";"
+            + convert(seg_hr - 5 + x)
+            + "\n")
 
     file_hr.close()
     file_eda.close()

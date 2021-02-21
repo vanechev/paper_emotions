@@ -16,6 +16,7 @@ files = {
 }
 
 data = open('./data.csv', "w")
+data.write("registro;eda_mean;eda_std;hr_mean;hr_std;class\n")
 i = 0
 
 for dato in datos.split("\n"):

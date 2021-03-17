@@ -15,9 +15,14 @@ files = {
     "group3/R3": 5
 }
 
-data = open('./data.csv', "w")
+data = open('./own_result/data.csv', "w")
 data.write("registro;eda_mean;eda_std;hr_mean;hr_std;class\n")
 i = 0
+
+def change_binay(type):
+    if type == "1":
+        return "1"
+    return "0"
 
 for dato in datos.split("\n"):
     info = dato.split(";")
@@ -50,7 +55,7 @@ for dato in datos.split("\n"):
         info[0] + ";"
         + str(statistics.mean(data_eda)) + ";" + str(statistics.stdev(data_eda)) + ";"
         + str(statistics.mean(data_hr)) + ";" + str(statistics.stdev(data_hr)) + ";"
-        + info[2]
+        + change_binay(info[2])
         + "\n")
 
     file_hr.close()

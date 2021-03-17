@@ -17,12 +17,14 @@ files = {
 
 class_dimensional = {
     1: "HALV",
-    2: "HAHV",
-    3: "LALV",
-    4: "LAHV",
+    2: "NO-HALV",
+    3: "NO-HALV",
+    4: "NO-HALV",
 }
 
-data = open('./data_CNN.csv', "w")
+type_seconds = 30
+
+data = open('./own_result/data_CNN_' + str(type_seconds) + '.csv', "w")
 data.write("group;nurse;hr_rate;eda;class;time\n")
 i = 0
 
@@ -56,20 +58,20 @@ for dato in datos.split("\n"):
     #seg_hr = int(info[1])
     seg = seg_hr * 4
 
-    data_eda = eda[(seg - 20): (seg + 20)]
-    data_hr = hr[(seg_hr - 5): (seg_hr + 5)]
+    data_eda = eda[(seg - (type_seconds * 2)): (seg + (type_seconds * 2))]
+    data_hr = hr[(seg_hr - int(type_seconds / 2)): (seg_hr + int(type_seconds / 2))]
 
     #print(data_eda)
     #print(data_hr)
 
-    for x in range(10):
+    for x in range(type_seconds):
         data.write(
             info[3][-1] + ";"
             + info[4][-1] + ";"
             + str(statistics.mean(data_eda[(x * 4): ((x * 4) + 4)])) + ";"
             + str(data_hr[x]) + ";"
             + class_dimensional.get(int(info[2])) + ";"
-            + convert(seg_hr - 5 + x)
+            + convert(seg_hr - int(type_seconds / 2) + x)
             + "\n")
 
     file_hr.close()
